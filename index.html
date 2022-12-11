@@ -1,0 +1,213 @@
+<html>
+    <head>
+        <title>Seoul BIS System</title>
+        <script src="script/jquery-3.6.1.min.js"></script>
+        <script src="script/x2js.js"></script>
+    </head>
+    <body>
+        <div class="setup">
+            버스정류장번호: <input type="text" id="busStopNo" value="100000001"><br>
+            버스정류장명: <input type="text" id="busStopName" value="서울역"><br>
+            <button id="getBusInfobyNum" onclick="getBusInfobyNum()">정류장 번호로 가져오기</button>
+            <button id="getBusInfobyName" onclick="getBusInfobyName()">정류장 이름으로 가져오기</button>
+            <button id="getBusInfobyName" onclick="voiceArrival(['6624', '1137', '98', '6614'])">테스트 안내방송</button>
+            
+        </div>
+        <div id="led">
+        <div class="ledScreen">
+            <!-- divide list by two -->
+            <div class="busList">
+                <div class="busListEntry01">
+                    <div class="busListEntry Entry01">
+                        <div class="busNo">
+                            <img width="14" height="14" style="display: inline;" src="images/gbus.png">
+                            1137</div>
+                        <div class="busType">
+                            <img height="14" style="display: inline;" src="images/wheelchair.png">
+
+                        </div>
+                        <div class="busTime"><img height="14" style="display: inline;" src="images/garage.png">
+                        </div>
+                    </div>
+                    <div class="busListEntry Entry03">
+                        <div class="busNo">1137</div>
+                        <div class="busType"><img height="14" style="display: inline;" src="images/wheelchair.png"></div>
+                        <div class="busTime">30분</div>
+                    </div>
+                    <div class="busListEntry Entry05">
+                        <div class="busNo">1137</div>
+                        <div class="busType"><img height="14" style="display: inline;" src="images/wheelchair.png"></div>
+                        <div class="busTime">30분</div>
+                    </div>
+                </div>
+                <div class="busListEntry02">
+                    <div class="busListEntry Entry02">
+                        <div class="busNo">1137</div>
+                        <div class="busType"><img height="14" style="display: inline;" src="images/wheelchair.png"></div>
+                        <div class="busTime">30분</div>
+                    </div>
+                    <div class="busListEntry Entry04">
+                        <div class="busNo">1137</div>
+                        <div class="busType"><img height="14" style="display: inline;" src="images/wheelchair.png"></div>
+                        <div class="busTime">30분</div>
+                    </div>
+                    <div class="busListEntry Entry06">
+                        <div class="busNo">1137</div>
+                        <div class="busType"><img height="14" style="display: inline;" src="images/wheelchair.png"></div>
+                        <div class="busTime">30분</div>
+                    </div>
+                </div>
+                
+                </div>
+
+                <div class="busNotice">
+                    서울버스BIS<br>
+                    <span style="color: var(--ledCyan)">운영중단예정</span>
+                    </div>
+                
+            <div class="recentArrival">
+                <div class="arrivalScroll">
+                    <div class="arrivalScrollText">
+                        <img src="images/arrival.png">
+                    </div>
+                    <div class="arrivalScrollBus manyBus">
+                        1137
+                        <span class="busConf">(<span class="busConfFree">여유</span>)</span>, 양천03
+                    </div>
+                </div>
+                <div class="currentTime">
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+        <style>
+            :root {
+  --ledBlack: rgb(0, 0, 0);
+  --ledWhite: rgb(255,255,255);
+  --ledRed: rgb(255,0,0);
+  --ledGreen: rgb(0,255,0);
+  --ledBlue: rgb(0, 0 ,255);
+  --ledOrange: rgb(255,128,0);
+  --ledYellow: rgb(255,255,0);
+  --ledMagenta: rgb(255,0,255);
+  --ledCyan: rgb(0,255,255);
+}
+
+            body{
+                color:var(--ledWhite);
+                background-color: #eee;
+            }
+
+            @font-face {
+                font-family: 'Galmuri14';
+                src: url('fonts/Galmuri14.woff2') format('woff2');
+            }
+
+            @font-face {
+                font-family: 'Naver Gulim';
+                src: url('fonts/naverdic.ttf') format('truetype');
+            }
+            .setup{
+                color: var(--ledBlack);
+            }
+            .ledScreen{
+                background-color: var(--ledBlack);
+                width: 192px;
+                height: 64px;
+                padding:0px;
+                font-size:14px;
+                font-family: 'Galmuri14';
+                line-height:15px;
+                transform: scale(2);
+                margin-top: 50px;
+                margin-left: 100px;
+                image-rendering: crisp-edges;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            .recentArrival{
+                border: 1px solid var(--ledYellow);
+                position: absolute;
+                bottom: 0;
+                width:190px;
+            }
+
+            .arrivalScroll{
+                display: flex;
+            }
+            .arrivalScrollText{
+                width: 36px;
+                background-color:var(--ledBlack)!important;
+                z-index:5;
+            }
+
+            .arrivalScrollBus{
+                width: 100%;
+            }
+
+            @keyframes scroll {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-100%); }
+                }
+            .manyBus{
+                animation: scroll 7s linear infinite;
+                animation-timing-function: steps(75, end);
+            }
+
+            .busConf{
+                color: var(--ledYellow);
+            }
+
+            .busConfFree{
+                color: var(--ledGreen);
+            }
+            .busConfMid{
+                color: var(--ledOrange);
+            }
+            .busConfHigh{
+                color: var(--ledRed);
+            }
+
+            .busListEntry01{
+                width: 50%;
+                height: 45.5px;
+                border-right: 0.5px solid var(--ledYellow);
+            }
+            .busListEntry02{
+                width: 50%;
+                height: 45.5px;
+                border-left: 0.5px solid var(--ledYellow);
+            }
+            .busList{
+                display:flex;
+            }
+            .busListEntry{
+                display:flex;
+            }
+            .busNo{
+                width: 45.24%;
+                display:flex;
+            }
+            .busType{
+                width: 26.1%;
+            }
+            .busTime{
+                width: 28.66%;
+                color: var(--ledCyan);
+            }
+            
+            .currentTime{
+                text-align:center;
+            }
+
+            .busNotice{
+                text-align:center;
+            }
+        </style>
+
+<script src="script/bis.js"></script>
+    </body>
+</html>
