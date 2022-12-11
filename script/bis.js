@@ -12,7 +12,7 @@ var currentTime = rbox.getElementsByClassName("currentTime")[0];
 
 var informationFetching = true;
 var BISApiKey = "HQEmzB%2BE4tD6RqzgNk4MdNZWflx867TRSnKvWHywsBRqofUZHOhWJdCuZmnLqvwrnRgEdqKYVdQV4Sd8HjXJvA%3D%3D";
-var APIResult = [];
+var APIResult = "";
 
 busList.style.display = "none";
 notice.style.display = "none";
@@ -188,7 +188,7 @@ xhr.onreadystatechange = function () {
         var x2js = new X2JS();
         var json = x2js.xml2js(xml);
         
-        APIResult = json;
+        APIResult = xml;
     }
     else{
         var xml = this.responseXML;
@@ -196,7 +196,7 @@ xhr.onreadystatechange = function () {
         var x2js = new X2JS();
         var json = x2js.xml2js(xml);
         
-        APIResult = json;
+        APIResult = xml;
     }
 };
 
@@ -211,4 +211,5 @@ function getBusInfobyName(){
 clock();
 showNotice("정보 수신 중입니다<br>기다려주세요", true);
 //showNotice('<br><img width="14" height="14" style="display: inline;" src="images/seoulmetro.png">서울교통공사', true);
-//showNotice('<img src="images/seoul_slogan.png"><br>Seoul BIS System', true);
+//showNotice('<img src="images/seoul_slogan.png">', true);
+showNotice('<img width="14" height="14" style="display: inline;" src="images/seoulmetro.png">서울교통공사 | 우리역 첫/막차<br>첫차 <span style="color:var(--ledCyan);">05:30</span><br>막차 <span style="color:var(--ledCyan);">01:13</span>', true);
