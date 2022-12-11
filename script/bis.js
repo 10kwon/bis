@@ -203,7 +203,9 @@ xhr.onreadystatechange = function () {
 xhr.send('');
 }
 function getBusInfobyName(){
-    ajaxFromUrl('http://ws.bus.go.kr/api/rest/stationinfo/getStationByName', ['stSrch'], [document.getElementById("busStopName").value])
+    $.when(ajaxFromUrl('http://ws.bus.go.kr/api/rest/stationinfo/getStationByName', ['stSrch'], [document.getElementById("busStopName").value])).then(function(){
+        console.log(APIResult)
+    })
     
 }
 
