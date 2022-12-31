@@ -319,7 +319,7 @@ socket.on('clientReboot', function(data) {
   player = new YT.Player('player', {
     height: '1920',
     width: '1080',
-    videoId: 'JE3Z7SxcE_U',
+    videoId: 'ksarRNVcPww',
     events: {
     }
   });
