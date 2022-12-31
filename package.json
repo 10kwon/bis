@@ -1,0 +1,27 @@
+{
+  "name": "bis",
+  "version": "1.0.0",
+  "description": "Seoul Bus Information System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10kwon/bis.git"
+  },
+  "author": "만원",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/10kwon/bis/issues"
+  },
+  "homepage": "https://github.com/10kwon/bis#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.0",
+    "socket.io": "^4.5.4",
+    "xml2js": "^0.4.23"
+  }
+}
